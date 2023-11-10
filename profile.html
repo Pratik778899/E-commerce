@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Simply Elegant | Profile</title>
+</head>
+
+<body>
+    <div id="main">
+        <div id="nav">
+            <div id="nav-left">
+                <a href="index.html">HOME</a>
+                <a href="#">LOOKBOOK</a>
+                <a href="#">COLLECTION</a>
+                <a href="#">ABOUT</a>
+            </div>
+            <div id="nav-right">
+                <a href="#">LOGOUT</a>
+            </div>
+        </div>
+
+        <div id="page1">
+            <div id="profile-container">
+                <img src="https://i.pinimg.com/564x/1e/6b/b9/1e6bb97de109a2c3186dd2a3d98be4ff.jpg" alt="">
+                <h1>Master</h1>
+                <h3>YOUR.MAIL@gmail.com</h3>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script>
+        const mailChanger = document.querySelector("#profile-container h3");
+        const storeData = localStorage.getItem("email");
+        mailChanger.innerHTML = storeData;
+
+        const logoutBtn = document.querySelector("#nav-right a");
+        logoutBtn.addEventListener("click", () => {
+            localStorage.removeItem("email")
+            document.cookie = "userLoggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+            alert("You have been logged out");
+            window.location.href = "login.html";
+        })
+
+    </script>
+</body>
+
+</html>

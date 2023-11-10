@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simply Elegant | Register</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="main">
+        <div id="nav">
+            <div id="nav-left">
+                <a href="index.html">HOME</a>
+                <a href="#">LOOKBOOK</a>
+                <a href="#">COLLECTION</a>
+                <a href="#">ABOUT</a>
+            </div>
+            <div id="nav-right">
+                <a href="login.html">Login</a>
+                <a href="register.html">Register</a>
+            </div>
+        </div>
+
+        <div id="signup">
+            <div id="left-image">
+                <img src="img/vecteezy_shopping-cart-concept-illustration_15793389.jpg" alt="">
+            </div>
+            <div id="text-hai1">
+                <h3>Create an Account</h3>
+                <p>Sign up with your email</p>
+
+                <div id="input-hai">
+                    <form id="signup-form">
+                        <input type="text" name="fullname" id="fullname" placeholder="Full Name">
+                        <br>
+                        <input type="email" name="email" id="signup-email" placeholder="Email">
+                        <br>
+                        <input type="password" name="password" id="signup-password" placeholder="Password"><br><br>
+
+                        <button type="submit" id="signup-button"> Sign Up</button>
+
+                        <div id="haat">
+                            <p>Already have an account? </p> <a href="login.html"><b>Log In</b></a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <script>
+
+const signupButton = document.querySelector('#signup-button');
+
+signupButton.addEventListener('click', async (event) => {
+    event.preventDefault();
+
+    const fullname = document.querySelector('#fullname').value;
+    const signupEmail = document.querySelector('#signup-email').value;
+    const signupPassword = document.querySelector('#signup-password').value;
+
+    if (fullname === "" || signupEmail === "" || signupPassword === "") {
+        alert("Please enter all your credentials");
+        return
+    }
+
+    const userData = {
+        fullname: fullname,
+        email: signupEmail,
+        password: signupPassword
+    };
+
+    try {
+        const response = await fetch("http://localhost:8081/users", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+        });
+
+        if (response.ok) {
+            alert("Registration successful");
+
+        } else {
+            alert("Registration failed. Please try again.");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+});
+    </script>
+
+
+</body>
+
+
+</html>

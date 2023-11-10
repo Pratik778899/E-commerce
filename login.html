@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simply Elegant | Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="main">
+        <div id="nav">
+            <div id="nav-left">
+                <a href="index.html">HOME</a>
+                <a href="#">LOOKBOOK</a>
+                <a href="#">COLLECTION</a>
+                <a href="#">ABOUT</a>
+            </div>
+            <div id="nav-right">
+                <a href="login.html">Login</a>
+                <a href="register.html">Register</a>
+            </div>
+        </div>
+
+        <div id="login">
+            <div id="text-hai">
+                <h3>Welcome back!</h3>
+                <p>Please Login to account.</p>
+
+                <div id="input-hai">
+                    <div id="login-form">
+
+                        <input type="email" name="email" id="login-email" placeholder="Email">
+                        <br>
+
+                        <input type="password" name="password" id="login-password" placeholder="Password"><br><br>
+
+
+                        <div id="bul">
+                            <input type="checkbox" name="box" id="c-box"> Remember for 30 Days
+
+                            <a href="mera pacad aur jhul jaaaa"> Forget password</a>
+                        </div>
+
+                        <button type="submit" id="login-button" onclick="getUserDetails()"> Log In</button>
+
+                        <div id="haat">
+                            <p>Don't have an account? </p> <a href="register.html"><b>Signup for free</b></a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div id="right-elem">
+                <img src="/img/vecteezy_shopping-cart-concept-illustration_15793389.jpg" alt="">
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const getUserDetails = async () => {
+            const users = await fetch("http://localhost:8081/users");
+            if (!users.ok) {
+                alert("Failed to fetch user details from the server");
+                return;
+            }
+            const userDetails = await users.json();
+
+
+            const email = document.getElementById("login-email").value;
+            const password = document.getElementById("login-password").value;
+
+            if (email === "" || password === "" && email == null || password == undefined) {
+                return alert("Email And Password Cannot Be Empty")
+            }
+
+            // console.log(userDetails)
+
+            const user = userDetails.find(dets => {
+                return dets.email === email && dets.password === password;
+            });
+
+            if (user) {
+                localStorage.setItem("email", email);
+                document.cookie = "userLoggedIn=true; path=/";
+                alert("Login successful! Redirecting to the dashboard...");
+                window.location.href = "profile.html";
+
+            } else {
+                alert("Login failed. Please check your credentials.");
+            }
+            // loginForm.reset();
+        };
+
+
+    </script>
+</body>
+
+
+</html>

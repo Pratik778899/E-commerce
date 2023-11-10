@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Simply Elegant | Product</title>
+</head>
+
+<body>
+
+    <!-- <div id="cart-btn">
+        <i class="ri-shopping-cart-line"></i>
+    </div> -->
+
+    <div id="main">
+        <div id="nav">
+            <div id="nav-left">
+                <a href="product.html">PRODUCT</a>
+                <a href="#">LOOKBOOK</a>
+                <a href="#">COLLECTION</a>
+                <a href="#">ABOUT</a>
+            </div>
+
+        </div>
+
+        <i class="ri-arrow-left-line"></i>
+
+        <div id="page1">
+            <div class="view-main-container">
+                <div class="view-left-container">
+                    <img src="./img/pngegg (1).png" alt="">
+                </div>
+                <div class="view-right-container">
+                    <h3 id="product-name">Leather Jackect D & G </h3>
+
+                    <div id="star">
+                        <i class="ri-star-s-fill"></i>
+                        <i class="ri-star-s-fill"></i>
+                        <i class="ri-star-s-fill"></i>
+                        <i class="ri-star-s-fill"></i>
+                        <i class="ri-star-half-s-line"></i>
+                        <p>32 Review</p>
+                    </div>
+                    <div class="rs">
+                        <h1>₹ 1500</h1>
+                    </div>
+                    <div id="size">
+                        <h5>Size</h5>
+                    </div>
+                    <div class="size-container">
+                        <div class="clothes-container">
+                            <p>S</p>
+                        </div>
+                        <div class="clothes-container">
+                            <p>M</p>
+                        </div>
+                        <div class="clothes-container">
+                            <p>L</p>
+                        </div>
+                        <div class="clothes-container">
+                            <p>XL</p>
+                        </div>
+                        <div class="clothes-container">
+                            <p>XXL</p>
+                        </div>
+                        <div class="clothes-container">
+                            <p>XXXL</p>
+                        </div>
+                    </div>
+                    <div id="cart-button-container">
+                        <button>Add to cart</button>
+                    </div>
+                    <p>Free Delivery Over ₹ 600</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- <div class="page2">
+            <h1>REVIEWS</h1>
+
+
+        </div> -->
+
+
+    </div>
+
+
+    <script>
+
+        // let cartBtn = document.getElementById("cart-btn");
+
+        // cartBtn.addEventListener("click", () => {
+        //     window.location.href = "cart.html";
+        // });
+
+        const selectedItemJSON = localStorage.getItem("selectedItem");
+
+        if (selectedItemJSON) {
+            const selectedItem = JSON.parse(selectedItemJSON);
+
+            // Access the properties of the selected item
+            const itemName = selectedItem.name;
+            const itemPrice = selectedItem.price;
+            const imgSrc = selectedItem.image;
+
+            let vlc = document.querySelector(".view-left-container");
+            let productName = document.getElementById("product-name");
+            let rs = document.querySelector(".rs h1")
+
+            const imgElement = document.createElement("img");
+            imgElement.src = imgSrc;
+
+            vlc.innerHTML = '';
+            vlc.appendChild(imgElement);
+
+            productName.innerHTML = itemName
+            rs.innerHTML = itemPrice
+
+            const backButton = document.querySelector(".ri-arrow-left-line")
+            backButton.addEventListener("click", function () {
+                localStorage.removeItem("selectedItem");
+                window.location.href = "product.html";
+            });
+        }
+
+        let addCart = document.querySelector("#cart-button-container button")
+
+        addCart.addEventListener("click", () => {
+            let selectedItem = JSON.parse(localStorage.getItem("selectedItem"));
+            let cartArr = JSON.parse(localStorage.getItem("cartItems")) || [];
+            cartArr.push(selectedItem);
+            localStorage.setItem("cartItems", JSON.stringify(cartArr));
+            alert("Item added to the cart.");
+        })
+
+    </script>
+</body>
+
+</html>

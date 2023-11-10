@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Simple Elegant | Cart</title>
+</head>
+
+<body>
+    <div id="cart-btn">
+        <i class="ri-shopping-cart-line"></i>
+    </div>
+
+    <div id="main">
+        <div id="nav">
+            <div id="nav-left">
+                <a href="product.html">PRODUCT</a>
+                <a href="#">LOOKBOOK</a>
+                <a href="#">COLLECTION</a>
+                <a href="#" id="prof">PROFILE</a>
+            </div>
+            <div id="nav-right">
+                <a href="login.html">Login</a>
+                <a href="register.html">Register</a>
+            </div>
+            <div id="prf-logo">
+                <img src="https://i.pinimg.com/564x/1e/6b/b9/1e6bb97de109a2c3186dd2a3d98be4ff.jpg" alt="">
+            </div>
+        </div>
+
+        <div id="page1">
+            <div id="progress">
+                <h3>MY BAG</h3>
+                <h3>ADDRESS</h3>
+                <h3>PAYMENT</h3>
+            </div>
+
+
+            <div id="main-check">
+                <div id="check-direction">
+                    <!-- <div class="cart-checkout">
+                        <div class="checkout-container">
+                            <div class="check-img">
+                                <img src="/img/ekjrng.png" alt="">
+                            </div>
+                        </div>
+                        <div class="check-right">
+                            <div id="check-name">
+                                <h3>leather jacket</h3>
+                                <h2 class="item-price">₹ 2000</h2>
+                            </div>
+                            <div id="check-desc">
+                                <h4>kiya kaapda hai</h4>
+                            </div>
+                            <div id="check-delevery">
+                                <p>ho jaa ai ga 5 days</p>
+                            </div>
+                            <div class="line"></div>
+                            <div id="remove">
+                                <button>REMOVE</button>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+
+                <div id="place-dets">
+
+                    <div id="cart-total" class="check-flex">
+                        <p>Cart Total</p>
+                        <p id="cart-total">₹ 1</p>
+                    </div>
+                    <div id="gst" class="check-flex">
+                        <p>GST</p>
+                        <p id="price-gst">₹ 1</p>
+                    </div>
+                    <div id="shipping-chg" class="check-flex">
+                        <p>Shipping Charges</p>
+                        <p>₹ 0</p>
+                    </div>
+                    <div id="total-amt" class="check-flex">
+                        <p>Total Amount</p>
+                        <p id="total-amt">₹ 2</p>
+                    </div>
+                    <div id="place-btn">
+                        <button>PLACE ORDER</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+
+        <script>
+            let checkout = JSON.parse(localStorage.getItem("cartItems"))
+
+            let checkDirection = document.getElementById("check-direction")
+            let cartTotalDiv = document.getElementById("cart-total")
+            let priceGst = document.getElementById("price-gst")
+            let totalAmt = document.getElementById("total-amt")
+
+            let cartTotal = 0;
+
+            for (let i = 0; i < checkout.length; i++) {
+
+                let cartCheckout = document.createElement("div")
+                cartCheckout.className = "cart-checkout"
+
+                let itemPriceValue = parseFloat(checkout[i].price.replace("₹", "").replace(/,/g, ""));
+
+                let cartContainer = document.createElement("div")
+                cartContainer.className = "checkout-container";
+                cartCheckout.appendChild(cartContainer)
+
+                let checkImg = document.createElement("div");
+                checkImg.className = "check-img"
+                let imgElem = document.createElement("img")
+                imgElem.src = checkout[i].image;
+                checkImg.appendChild(imgElem)
+                cartContainer.appendChild(checkImg)
+
+                let checkRight = document.createElement("div")
+                checkRight.className = "check-right"
+                cartCheckout.appendChild(checkRight)
+
+                let checkName = document.createElement("div")
+                checkName.id = "check-name";
+                let nameHeader = document.createElement("h3")
+                nameHeader.textContent = checkout[i].name;
+                checkName.appendChild(nameHeader)
+                checkRight.appendChild(checkName)
+
+                let itemPrice = document.createElement("h2")
+                itemPrice.className = "item-price"
+                itemPrice.textContent = `₹ ${itemPriceValue.toFixed(2)}`
+                checkName.appendChild(itemPrice)
+
+                let checkDesc = document.createElement("div")
+                checkDesc.id = "check-desc"
+                let textDesc = document.createElement("h4")
+                textDesc.textContent = "kiya kaapda hai"
+                checkDesc.appendChild(textDesc)
+                checkRight.appendChild(checkDesc)
+
+                let checkDelivery = document.createElement("div")
+                checkDelivery.id = "check-delevery"
+                let textDelivery = document.createElement("p")
+                textDelivery.textContent = 'DELIVERY :- ho jaa ai ga 5 days mai'
+                checkDelivery.appendChild(textDelivery)
+                checkRight.appendChild(checkDelivery)
+
+                let line = document.createElement("div")
+                line.className = "line"
+                checkRight.appendChild(line)
+
+                let removeButtonContainer = document.createElement("div");
+                removeButtonContainer.id = "remove";
+                let removeButton = document.createElement("button");
+                removeButton.textContent = "REMOVE";
+                removeButtonContainer.appendChild(removeButton);
+                checkRight.appendChild(removeButtonContainer);
+                removeButton.addEventListener("click", () => {
+                    checkout.splice(i, 1);
+                    localStorage.setItem("cartItems", JSON.stringify(checkout));
+                    cartCheckout.remove();
+                });
+
+                checkDirection.appendChild(cartCheckout)
+
+                cartTotal += itemPriceValue
+
+            }
+
+            updateCartTotal();
+
+            function updateCartTotal() {
+                cartTotalDiv.textContent = `Cart Total   ` +  " ₹ " + cartTotal.toFixed(2);
+                // You can calculate GST, shipping charges, and total amount here if needed.
+                priceGst.textContent = "₹ 0"; // Update this with actual GST calculation
+                totalAmt.textContent = "₹ " + (cartTotal + 0).toFixed(2); // Update this with total amount calculation
+            }
+
+            let placeDets = document.getElementById("place-dets")
+
+            if (checkout.length === 0) {
+                placeDets.style.display = "none"
+                let yourCartIsEmpty = document.createElement("h1")
+                yourCartIsEmpty.textContent = "Your Cart Is Empty!"
+                checkDirection.appendChild(yourCartIsEmpty)
+            }
+
+        </script>
+
+</body>
+
+</html>
